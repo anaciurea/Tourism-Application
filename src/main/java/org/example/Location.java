@@ -10,31 +10,31 @@ public class Location {
     private Integer latitude;
     private Integer longitude;
 
-    private String getCounty() {
+    public String getCounty() {
         return county;
     }
 
-    private Integer getSirutaCode() {
+    public Integer getSirutaCode() {
         return sirutaCode;
     }
 
-    private String getLocality() {
+    public  String getLocality() {
         return locality;
     }
 
-    private String getAdminUnit() {
+    public String getAdminUnit() {
         return adminUnit;
     }
 
-    private String getAddress() {
+    public  String getAddress() {
         return address;
     }
 
-    private Integer getLatitude() {
+    public  Integer getLatitude() {
         return latitude;
     }
 
-    private Integer getLongitude() {
+    public  Integer getLongitude() {
         return longitude;
     }
 
@@ -48,6 +48,7 @@ public class Location {
         this.latitude = builder.latitude;
         this.longitude = builder.longitude;
     }
+
     public static class Builder {
         private String county;
         private Integer sirutaCode;
@@ -78,7 +79,7 @@ public class Location {
            return this;
         }
 
-        public Builder setLatitudine(Integer latitude) {
+        public Builder setLatitude(Integer latitude) {
            this.latitude = latitude;
            return this;
         }
