@@ -2,60 +2,49 @@ package org.example;
 
 public class CommandProcessor {
     public static String processCommand(String line, Database database) throws Exception {
-        // Ignoră liniile goale sau care nu conțin comenzi valide
+        // Verificăm dacă linia este validă
         if (line == null || line.trim().isEmpty()) {
             return null;
         }
 
-        String[] parts = line.split(" ", 2);
-        String command = parts[0];
-        String params = parts.length > 1 ? parts[1] : "";
+        // Împărțim linia în părți folosind delimitatorul "|"
+        String[] parts = line.split("\\|");
+        if (parts.length < 2) {
+            throw new IllegalArgumentException("Invalid command format: " + line);
+        }
 
-        switch (command.toUpperCase()) {
-            case "ADD_MUSEUM":
-                return addMuseum(params, database);
-//            case "ADD_GROUP":
-//                return addGroup(params, database);
+        String command = parts[0].trim().toUpperCase(); // Primul element este comanda
+        switch (command) {
+            case "ADD MUSEUM":
+                return addMuseum(parts, database);
             default:
                 throw new IllegalArgumentException("Unknown command: " + command);
         }
     }
 
+    private static String addMuseum(String[] parts, Database database) {
+        if (parts.length < 5) {
+            throw new IllegalArgumentException("Invalid museum data: " + String.join("|", parts));
+        }
 
-
-    private static String addMuseum(String params, Database database) {
         try {
-            // Parametrii separați de "|"
-            String[] museumData = params.split("\\|");
-            long code = Long.parseLong(museumData[1].trim());
-            String name = museumData[2].trim();
-            String county = museumData[3].trim();
-            int sirutaCode = Integer.parseInt(museumData[15].trim());
+            // Extragem datele muzeului din linie
+            long code = Long.parseLong(parts[1].trim());
+            String name = parts[2].trim();
+            String county = parts[3].trim();
+            String locality = parts[4].trim();
 
-            // Construim locația folosind builder-ul
-            Location location = new Location.Builder(county, sirutaCode)
-                    .setLocality(museumData[4].trim().isEmpty() ? null : museumData[4].trim())
-                    .setAdminUnit(museumData[5].trim().isEmpty() ? null : museumData[5].trim())
-                    .setAddress(museumData[6].trim().isEmpty() ? null : museumData[6].trim())
-                    .setLatitude(museumData[19].trim().isEmpty() ? null : Integer.parseInt(museumData[19].trim().replace(",", "")))
-                    .setLongitude(museumData[20].trim().isEmpty() ? null : Integer.parseInt(museumData[20].trim().replace(",", "")))
-                    .build();
+            // Creăm obiectul Location și Museum
+            Location location = new Location.Builder(county, 0).build();
+            Museum museum = new Museum.Builder(name, code, 0, location).build();
 
-            // Construim muzeul folosind builder-ul
-            Museum.Builder builder = new Museum.Builder(name, code, 0L, location);
-
-            // Setăm câmpuri suplimentare, dacă există
-            if (!museumData[10].isEmpty()) builder.setFoundingYear(Integer.parseInt(museumData[10].trim()));
-            if (!museumData[8].isEmpty()) builder.setPhoneNumber(museumData[8].trim());
-            if (!museumData[12].isEmpty()) builder.setManager(new Person(museumData[12].trim(), "", "director"));
-
-            Museum museum = builder.build();
+            // Adăugăm muzeul în baza de date
             database.addMuseum(museum);
 
-            return code + ": " + name; // Rezultatul pentru testare sau debugging
-        } catch (Exception e) {
-            return "Exception: Data is broken. ## (" + params + ")";
+            // Returnăm mesajul de succes
+            return code + ": " + name;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid museum code format: " + parts[1].trim());
         }
     }
-
 }
