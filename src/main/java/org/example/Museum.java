@@ -139,4 +139,10 @@ public class Museum {
            return new Museum(this);
        }
    }
+
+    @Override
+    public String toString() {
+        return code + ": " + name;
+    }
+
 }

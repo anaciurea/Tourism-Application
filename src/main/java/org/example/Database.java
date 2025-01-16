@@ -43,4 +43,13 @@ public class Database {
     public  void addGroups(Set<Group> groups) {
         this.groups.addAll(groups);
     }
+
+    public String getAllMuseums() {
+        StringBuilder sb = new StringBuilder();
+        for (Museum museum : museums) {
+            sb.append(museum.toString()).append(System.lineSeparator());
+        }
+        return sb.toString().trim();
+    }
+
 }

@@ -1,46 +1,29 @@
 package org.example;
 
 public class CommandProcessor {
-    public static void processCommand(PathTypes pathType, String command, Database database) {
-        String[] parts = command.split(" ", 2);
-        String action = parts[0];
+    public static String processCommand(String line, Database database) throws Exception {
+        // Ignoră liniile goale sau care nu conțin comenzi valide
+        if (line == null || line.trim().isEmpty()) {
+            return null;
+        }
+
+        String[] parts = line.split(" ", 2);
+        String command = parts[0];
         String params = parts.length > 1 ? parts[1] : "";
 
-        try {
-            switch (pathType) {
-                case MUSEUMS:
-                    if (action.equals("ADD") && params.startsWith("MUSEUM")) {
-                        addMuseum(params.substring(7), database);
-                    }
-                    break;
-
-//                case GROUPS:
-//                    if (action.equals("ADD") && params.startsWith("GROUP")) {
-//                        addGroup(params.substring(6), database);
-//                    } else if (action.equals("ADD") && params.startsWith("GUIDE")) {
-//                        addGuide(params.substring(6), database);
-//                    } else if (action.equals("ADD") && params.startsWith("MEMBER")) {
-//                        addMember(params.substring(7), database);
-//                    } else if (action.equals("REMOVE") && params.startsWith("GUIDE")) {
-//                        removeGuide(params.substring(7), database);
-//                    }
-//                    break;
-//
-//                case LISTENER:
-//                    if (action.equals("ADD") && params.startsWith("EVENT")) {
-//                        addEvent(params.substring(6), database);
-//                    }
-//                    break;
-
-                default:
-                    System.out.println("Unknown PathType: " + pathType);
-            }
-        } catch (Exception e) {
-            System.out.println("Error processing command: " + e.getMessage());
+        switch (command.toUpperCase()) {
+            case "ADD_MUSEUM":
+                return addMuseum(params, database);
+//            case "ADD_GROUP":
+//                return addGroup(params, database);
+            default:
+                throw new IllegalArgumentException("Unknown command: " + command);
         }
     }
 
-    private static void addMuseum(String params, Database database) {
+
+
+    private static String addMuseum(String params, Database database) {
         try {
             // Parametrii separați de "|"
             String[] museumData = params.split("\\|");
@@ -54,8 +37,8 @@ public class CommandProcessor {
                     .setLocality(museumData[4].trim().isEmpty() ? null : museumData[4].trim())
                     .setAdminUnit(museumData[5].trim().isEmpty() ? null : museumData[5].trim())
                     .setAddress(museumData[6].trim().isEmpty() ? null : museumData[6].trim())
-                    .setLatitude(museumData[19].trim().isEmpty() ? null : Integer.parseInt(museumData[19].trim()))
-                    .setLongitude(museumData[20].trim().isEmpty() ? null : Integer.parseInt(museumData[20].trim()))
+                    .setLatitude(museumData[19].trim().isEmpty() ? null : Integer.parseInt(museumData[19].trim().replace(",", "")))
+                    .setLongitude(museumData[20].trim().isEmpty() ? null : Integer.parseInt(museumData[20].trim().replace(",", "")))
                     .build();
 
             // Construim muzeul folosind builder-ul
@@ -69,9 +52,9 @@ public class CommandProcessor {
             Museum museum = builder.build();
             database.addMuseum(museum);
 
-            System.out.println("Museum added: " + code + ": " + name);
+            return code + ": " + name; // Rezultatul pentru testare sau debugging
         } catch (Exception e) {
-            System.out.println("Exception: Data is broken. ## (" + params + ")");
+            return "Exception: Data is broken. ## (" + params + ")";
         }
     }
 
