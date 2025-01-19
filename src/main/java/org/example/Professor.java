@@ -12,7 +12,6 @@ public class Professor extends Person {
         return this.experience;
     }
 
-
     public String getSchool() {
         return school;
     }

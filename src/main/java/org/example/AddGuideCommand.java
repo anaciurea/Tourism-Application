@@ -14,7 +14,6 @@ public class AddGuideCommand implements Command{
         Group group = CommandProcessor.findOrCreateGroup(database, museumCode, timetable);
         Professor guide = new Professor(surname, name, "professor");
 
-        // Set optional fields
         guide.setAge(age);
         guide.setEmail(email);
         guide.setSchool(school);

@@ -48,7 +48,6 @@ public class CommandProcessor {
         }
     }
 
-    // Helper method for finding or creating a group remains unchanged
     public static Group findOrCreateGroup(Database database, int museumCode, String timetable) {
         Group group = database.getGroups().stream()
                 .filter(g -> g.getMuseumCode() == museumCode && g.getTimetable().equals(timetable))

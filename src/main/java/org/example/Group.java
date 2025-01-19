@@ -29,12 +29,10 @@ public class Group {
         this.guide = (Professor) guide;
     }
 
-    // Metodă pentru ștergerea ghidului
     public void resetGuide() {
         this.guide = null;
     }
 
-    // Metodă pentru adăugarea unui membru
     public void addMember(Person member) throws GroupThresholdException {
         if (members.size() >= 10) {
             throw new GroupThresholdException("The group threshold has been exceeded.");
@@ -42,7 +40,6 @@ public class Group {
         members.add(member);
     }
 
-    // Metodă pentru eliminarea unui membru
     public void removeMember(Person member) throws PersonNotExistsException {
         if (!members.remove(member)) {
             throw new PersonNotExistsException("Person was not found in the group.");

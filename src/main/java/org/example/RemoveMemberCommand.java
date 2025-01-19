@@ -14,7 +14,6 @@ class RemoveMemberCommand implements Command{
                         museumCode, timetable, surname, name, parts[8], parts[4], parts[5], parts[6], parts[7]));
             }
 
-            // Find the member with detailed attribute matching
             Person memberToRemove = group.getMembers().stream()
                     .filter(m -> m.getName().equals(name) &&
                             m.getSurname().equals(surname) &&

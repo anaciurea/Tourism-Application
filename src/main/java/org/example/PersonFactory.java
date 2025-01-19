@@ -12,7 +12,6 @@ public class PersonFactory {
         String name = data[1].trim();
         String role = data[2].trim();
 
-        // Optional fields
         int age = data.length > 3 && !data[3].trim().isEmpty() ? Integer.parseInt(data[3].trim()) : 0;
         String email = data.length > 4 ? data[4].trim() : "";
         String school = data.length > 5 ? data[5].trim() : "";
