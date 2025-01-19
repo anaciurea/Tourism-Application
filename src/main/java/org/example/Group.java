@@ -16,8 +16,7 @@ public class Group {
         this.timetable = timetable;
     }
 
-
-    // Metodă pentru adăugarea ghidului
+    
     public void addGuide(Person guide) throws GuideExistsException, GuideTypeException {
         if (this.guide != null) {
             throw new GuideExistsException("A guide already exists for this group.");
