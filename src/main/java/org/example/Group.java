@@ -20,10 +20,11 @@ public class Group {
     // Metodă pentru adăugarea ghidului
     public void addGuide(Person guide) throws GuideExistsException, GuideTypeException {
         if (this.guide != null) {
-            throw new GuideExistsException();
+            throw new GuideExistsException("A guide already exists for this group.");
         }
         if (!(guide instanceof Professor)) {
-            throw new GuideTypeException();
+           throw new GuideTypeException("Guide must be a professor.");
+
         }
         this.guide = (Professor) guide;
     }
@@ -36,7 +37,7 @@ public class Group {
     // Metodă pentru adăugarea unui membru
     public void addMember(Person member) throws GroupThresholdException {
         if (members.size() >= 10) {
-            throw new GroupThresholdException();
+            throw new GroupThresholdException("The group threshold has been exceeded.");
         }
         members.add(member);
     }
@@ -44,7 +45,7 @@ public class Group {
     // Metodă pentru eliminarea unui membru
     public void removeMember(Person member) throws PersonNotExistsException {
         if (!members.remove(member)) {
-            throw new PersonNotExistsException();
+            throw new PersonNotExistsException("Person was not found in the group.");
         }
     }
 

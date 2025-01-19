@@ -8,9 +8,10 @@ public class Professor extends Person {
         super(surname, name, role);
     }
 
-    public int getExperince() {
-        return experience;
+    public int getExperience() {
+        return this.experience;
     }
+
 
     public String getSchool() {
         return school;
@@ -23,4 +24,5 @@ public class Professor extends Person {
     public void setSchool(String school) {
         this.school = school;
     }
+
 }
