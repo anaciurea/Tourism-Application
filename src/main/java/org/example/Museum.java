@@ -1,6 +1,7 @@
 package org.example;
 
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Museum {
     private String name;
@@ -8,7 +9,7 @@ public class Museum {
     private long supervisorCode;
     private Location location;
 
-    //optionals
+    // Optionals
     private Person manager;
     private Integer foundingYear;
     private String phoneNumber;
@@ -16,6 +17,9 @@ public class Museum {
     private String email;
     private String url;
     private String profile;
+
+    // Listă de grupuri asociate
+    private List<Group> groups;
 
     private Museum(Builder builder) {
         this.name = builder.name;
@@ -31,118 +35,146 @@ public class Museum {
         this.url = builder.url;
         this.profile = builder.profile;
 
+        this.groups = new ArrayList<>();
     }
-   public String getName() {
-       return name;
-   }
 
-   public long getCode() {
-       return code;
-   }
+    // Metodă pentru a adăuga grupuri turistice asociate
+    public void addGroup(Group group) {
+        groups.add(group);
+    }
 
-   public long getSupervisorCode() {
-       return supervisorCode;
-   }
-
-   public Location getLocation() {
-       return location;
-   }
-
-   public Person getManager() {
-       return manager;
-   }
-
-   public Integer getFoundingYear() {
-       return foundingYear;
-   }
-
-   public String getPhoneNumber() {
-       return phoneNumber;
-   }
-
-   public String getFax() {
-       return fax;
-   }
-
-   public String getEmail() {
-       return email;
-   }
-
-   public String getUrl() {
-       return url;
-   }
-
-   public String getProfile() {
-       return profile;
-   }
+    // Metodă pentru a notifica ghizii despre un eveniment
+    public void notifyGuides(String organizerMessage) {
+        for (Group group : groups) {
+            Professor guide = group.getGuide();
+            if (guide != null && guide.getEmail() != null) {
+                System.out.printf(
+                        "To: %s ## Message: %s (%d) %s%n",
+                        guide.getEmail(), name, code, organizerMessage
+                );
+            }
+        }
+    }
 
 
-    //inner static class for builder
-   public static class Builder {
-       private String name;
-       private long code;
-       private long supervisorCode;
-       private Location location;
+    // Getteri existenți
+    public String getName() {
+        return name;
+    }
 
-       private Person manager;
-       private Integer foundingYear;
-       private String phoneNumber;
-       private String fax;
-       private String email;
-       private String url;
-       private String profile;
+    public long getCode() {
+        return code;
+    }
 
-       //constructor builder cu campurile obligatorii
-       public Builder(String name, long code, long supervisorCode, Location location) {
-           this.name = name;
-           this.code = code;
-           this.supervisorCode = supervisorCode;
-           this.location = location;
-       }
+    public long getSupervisorCode() {
+        return supervisorCode;
+    }
 
-       public Builder setManager(Person manager) {
-           this.manager = manager;
-           return this;
-       }
+    public Location getLocation() {
+        return location;
+    }
 
-       public Builder setFoundingYear(Integer foundingYear){
-           this.foundingYear = foundingYear;
-           return this;
-       }
+    public Person getManager() {
+        return manager;
+    }
 
-       public Builder setPhoneNumber(String phoneNumber) {
-           this.phoneNumber = phoneNumber;
-           return this;
-       }
+    public Integer getFoundingYear() {
+        return foundingYear;
+    }
 
-       public Builder setFax(String fax) {
-           this.fax = fax;
-           return this;
-       }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-       public Builder setEmail(String email) {
-           this.email = email;
-           return this;
-       }
+    public String getFax() {
+        return fax;
+    }
 
-       public Builder setUrl(String url) {
-           this.url = url;
-           return this;
-       }
+    public String getEmail() {
+        return email;
+    }
 
-       public Builder setProfile(String profile) {
-           this.profile = profile;
-           return this;
-       }
+    public String getUrl() {
+        return url;
+    }
 
-       public Museum build() {
-           return new Museum(this);
-       }
-   }
+    public String getProfile() {
+        return profile;
+    }
+
+    // Builder rămâne neschimbat
+    public static class Builder {
+        private String name;
+        private long code;
+        private long supervisorCode;
+        private Location location;
+
+        private Person manager;
+        private Integer foundingYear;
+        private String phoneNumber;
+        private String fax;
+        private String email;
+        private String url;
+        private String profile;
+
+        public Builder(String name, long code, long supervisorCode, Location location) {
+            this.name = name;
+            this.code = code;
+            this.supervisorCode = supervisorCode;
+            this.location = location;
+        }
+
+        public Builder setManager(Person manager) {
+            this.manager = manager;
+            return this;
+        }
+
+        public Builder setFoundingYear(Integer foundingYear) {
+            this.foundingYear = foundingYear;
+            return this;
+        }
+
+        public Builder setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        public Builder setFax(String fax) {
+            this.fax = fax;
+            return this;
+        }
+
+        public Builder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder setUrl(String url) {
+            this.url = url;
+            return this;
+        }
+
+        public Builder setProfile(String profile) {
+            this.profile = profile;
+            return this;
+        }
+
+        public Museum build() {
+            return new Museum(this);
+        }
+    }
 
     @Override
     public String toString() {
         return code + ": " + name;
+    }
+
+    public boolean isValid() {
+        return name != null && !name.isEmpty() &&
+                location != null &&
+                phoneNumber != null && !phoneNumber.isEmpty() &&
+                email != null && !email.isEmpty() &&
+                foundingYear != null;
     }
 
 }

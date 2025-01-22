@@ -52,4 +52,13 @@ public class Database {
         return sb.toString().trim();
     }
 
+    public Museum getMuseumByCode(long code) {
+        for (Museum museum : museums) {
+            if (museum.getCode() == code) {
+                return museum;
+            }
+        }
+        return null;
+    }
+
 }

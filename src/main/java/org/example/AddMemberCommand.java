@@ -1,6 +1,7 @@
+
 package org.example;
 
-class AddMemberCommand implements Command{
+class AddMemberCommand implements Command {
     public String execute(String[] parts, Database database) throws Exception {
         int museumCode = Integer.parseInt(parts[9].trim());
         String timetable = parts[10].trim();
@@ -15,8 +16,11 @@ class AddMemberCommand implements Command{
         Group group = CommandProcessor.findOrCreateGroup(database, museumCode, timetable);
 
         if (group.getMembers().size() >= 10) {
-            throw new GroupThresholdException(String.format("%d ## %s ## GroupThresholdException: Group cannot have more than 10 members. ## (new member: surname=%s, name=%s, role=%s, age=%d, email=%s, school=%s, additionalInfo=%s)",
-                    museumCode, timetable, surname, name, role, age, email, school, additionalInfo));
+            throw new GroupThresholdException(String.format(
+                    "%d ## %s ## GroupThresholdException: Group cannot have more than 10 members. ## (new member: surname=%s, name=%s, role=%s, age=%d, email=%s, school=%s, %s)",
+                    museumCode, timetable, surname, name, role, age, email, school,
+                    role.equalsIgnoreCase("student") ? "studyYear=" + additionalInfo : "experience=" + additionalInfo
+            ));
         }
 
         Person member;
@@ -43,7 +47,9 @@ class AddMemberCommand implements Command{
 
         group.addMember(member);
 
-        return String.format("%d ## %s ## new member: surname=%s, name=%s, role=%s, age=%d, email=%s, school=%s, %s",
-                museumCode, timetable, surname, name, role, age, email, school, additionalField);
+        return String.format(
+                "%d ## %s ## new member: surname=%s, name=%s, role=%s, age=%d, email=%s, school=%s, %s",
+                museumCode, timetable, surname, name, role, age, email, school, additionalField
+        );
     }
 }

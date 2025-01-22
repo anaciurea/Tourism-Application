@@ -37,6 +37,9 @@ public class CommandProcessor {
                 case "FIND GUIDE":
                     command = new FindGuideCommand();
                     break;
+                case "ADD EVENT":
+                    command = new AddEventCommand();
+                    break;
                 default:
                     throw new IllegalArgumentException("Unknown command: " + commandType);
             }
@@ -59,15 +62,25 @@ public class CommandProcessor {
             database.addGroup(group);
         }
 
+        // Atașăm loggerul dacă nu există deja
+        if (group.getObservers().isEmpty()) {
+            group.addObserver(new GroupLogger());
+        }
+
         return group;
     }
 
-    public static Group findGroup(Database database, int museumCode, String timetable) {
+
+    public static Group findGroup(Database database, int museumCode, String timetable) throws GroupNotExistsException {
         return database.getGroups().stream()
                 .filter(g -> g.getMuseumCode() == museumCode && g.getTimetable().equals(timetable))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new GroupNotExistsException(String.format(
+                        "%d ## %s ## GroupNotExistsException: Group does not exist.",
+                        museumCode, timetable
+                )));
     }
+
 
 
     public static String findGuide(String[] parts, Database database) throws GroupNotExistsException {
@@ -81,7 +94,7 @@ public class CommandProcessor {
 
         Group group = findGroup(database, museumCode, timetable);
         if (group == null) {
-            throw new GroupNotExistsException("Group does not exist.");
+
         }
 
         Person guide = group.getGuide();
