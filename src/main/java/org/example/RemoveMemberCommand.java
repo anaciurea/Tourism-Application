@@ -1,5 +1,6 @@
 package org.example;
 
+
 class RemoveMemberCommand implements Command {
     public String execute(String[] parts, Database database) throws Exception {
         int museumCode = Integer.parseInt(parts[9].trim());
@@ -41,9 +42,10 @@ class RemoveMemberCommand implements Command {
 
         return String.format(
                 "%d ## %s ## removed member: surname=%s, name=%s, role=%s, age=%d, email=%s, %s",
-                museumCode, timetable, surname, name, memberToRemove.getRole(), memberToRemove.getAge(),
+                museumCode, timetable, surname, name, "vizitator", memberToRemove.getAge(),
                 memberToRemove.getEmail() != null ? memberToRemove.getEmail() : "null",
                 additionalField
         );
     }
 }
+

@@ -1,4 +1,3 @@
-
 package org.example;
 
 class AddMemberCommand implements Command {
@@ -10,8 +9,11 @@ class AddMemberCommand implements Command {
         int age = Integer.parseInt(parts[4].trim());
         String email = parts[5].isEmpty() ? "null" : parts[5].trim();
         String school = parts[6].trim();
-        String role = parts[8].trim();
+        String role = "vizitator"; // Toți membrii au acest rol în muzeu.
         String additionalInfo = parts[7].trim();
+
+        // Debugging output pentru verificare
+        System.out.println("Procesare: surname=" + surname + ", name=" + name + ", age=" + age + ", additionalInfo=" + additionalInfo);
 
         Group group = CommandProcessor.findOrCreateGroup(database, museumCode, timetable);
 
@@ -19,34 +21,38 @@ class AddMemberCommand implements Command {
             throw new GroupThresholdException(String.format(
                     "%d ## %s ## GroupThresholdException: Group cannot have more than 10 members. ## (new member: surname=%s, name=%s, role=%s, age=%d, email=%s, school=%s, %s)",
                     museumCode, timetable, surname, name, role, age, email, school,
-                    role.equalsIgnoreCase("student") ? "studyYear=" + additionalInfo : "experience=" + additionalInfo
+                    parts[8].equals("student") ? "studyYear=" + additionalInfo : "experience=" + additionalInfo
             ));
         }
 
         Person member;
         String additionalField;
-        if (role.equalsIgnoreCase("student")) {
+
+        // Determinăm tipul de membru (student sau profesor) și setăm corect additionalInfo
+        if (parts[8].equals("student")) {
             int studyYear = Integer.parseInt(additionalInfo);
-            Student student = new Student(surname, name, "student");
+            Student student = new Student(surname, name, role);
             student.setAge(age);
             student.setEmail(email);
             student.setSchool(school);
             student.setStudyYear(studyYear);
-            member = student;
             additionalField = "studyYear=" + studyYear;
+            member = student;
         } else {
             int experience = Integer.parseInt(additionalInfo);
-            Professor professor = new Professor(surname, name, "professor");
+            Professor professor = new Professor(surname, name, role);
             professor.setAge(age);
             professor.setEmail(email);
             professor.setSchool(school);
             professor.setExperience(experience);
-            member = professor;
             additionalField = "experience=" + experience;
+            member = professor;
         }
 
+        // Adăugăm membrul la grup
         group.addMember(member);
 
+        // Returnăm string-ul formatat pentru noul membru
         return String.format(
                 "%d ## %s ## new member: surname=%s, name=%s, role=%s, age=%d, email=%s, school=%s, %s",
                 museumCode, timetable, surname, name, role, age, email, school, additionalField
