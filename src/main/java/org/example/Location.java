@@ -76,7 +76,7 @@ public class Location {
         this.fax = builder.fax;
         this.foundingYear = builder.foundingYear;
         this.url = builder.url;
-        this.email = builder.email; // Adăugat
+        this.email = builder.email;
     }
 
     public static class Builder {
