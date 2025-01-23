@@ -13,7 +13,7 @@ public class Location {
     private String fax;
     private Integer foundingYear;
     private String url;
-    private String email; // Adăugat
+    private String email;
 
     public String getCounty() {
         return county;
