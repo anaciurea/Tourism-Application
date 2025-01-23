@@ -20,13 +20,15 @@ public class AddGuideCommand implements Command {
             ));
         }
 
-        Professor guide = new Professor(surname, name, "professor");
-        guide.setAge(age);
-        guide.setEmail(email);
-        guide.setSchool(school);
-        guide.setExperience(experience);
+        if (parts[3].equals("professor")) {
+            Professor guide = new Professor(surname, name, "professor");
+            guide.setAge(age);
+            guide.setEmail(email);
+            guide.setSchool(school);
+            guide.setExperience(experience);
 
-        group.addGuide(guide);
+            group.addGuide(guide);
+        }
 
         return String.format(
                 "%d ## %s ## new guide: surname=%s, name=%s, role=ghid, age=%d, email=%s, school=%s, experience=%d",

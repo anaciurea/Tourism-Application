@@ -60,5 +60,9 @@ public class Database {
         }
         return null;
     }
+    public void resetDatabase() {
+        groups.clear();
+        museums.clear();
+    }
 
 }

@@ -29,7 +29,7 @@ class AddMemberCommand implements Command {
         String additionalField;
 
         // Determinăm tipul de membru (student sau profesor) și setăm corect additionalInfo
-        if (parts[8].equals("student")) {
+        if (parts[3].equals("student")) {
             int studyYear = Integer.parseInt(additionalInfo);
             Student student = new Student(surname, name, role);
             student.setAge(age);
