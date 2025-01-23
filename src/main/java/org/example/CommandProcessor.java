@@ -62,7 +62,6 @@ public class CommandProcessor {
             database.addGroup(group);
         }
 
-        // Atașăm loggerul dacă nu există deja
         if (group.getObservers().isEmpty()) {
             group.addObserver(new GroupLogger());
         }

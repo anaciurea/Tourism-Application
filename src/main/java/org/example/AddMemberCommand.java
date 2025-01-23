@@ -12,7 +12,7 @@ class AddMemberCommand implements Command {
         String role = "vizitator"; // Toți membrii au acest rol în muzeu.
         String additionalInfo = parts[7].trim();
 
-        // Debugging output pentru verificare
+       
         System.out.println("Procesare: surname=" + surname + ", name=" + name + ", age=" + age + ", additionalInfo=" + additionalInfo);
 
         Group group = CommandProcessor.findOrCreateGroup(database, museumCode, timetable);
@@ -28,7 +28,7 @@ class AddMemberCommand implements Command {
         Person member;
         String additionalField;
 
-        // Determinăm tipul de membru (student sau profesor) și setăm corect additionalInfo
+
         if (parts[3].equals("student")) {
             int studyYear = Integer.parseInt(additionalInfo);
             Student student = new Student(surname, name, role);
@@ -49,10 +49,8 @@ class AddMemberCommand implements Command {
             member = professor;
         }
 
-        // Adăugăm membrul la grup
         group.addMember(member);
 
-        // Returnăm string-ul formatat pentru noul membru
         return String.format(
                 "%d ## %s ## new member: surname=%s, name=%s, role=%s, age=%d, email=%s, school=%s, %s",
                 museumCode, timetable, surname, name, role, age, email, school, additionalField

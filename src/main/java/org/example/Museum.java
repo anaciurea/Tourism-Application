@@ -18,7 +18,7 @@ public class Museum {
     private String url;
     private String profile;
 
-    // Listă de grupuri asociate
+
     private List<Group> groups;
 
     private Museum(Builder builder) {
@@ -38,12 +38,12 @@ public class Museum {
         this.groups = new ArrayList<>();
     }
 
-    // Metodă pentru a adăuga grupuri turistice asociate
+
     public void addGroup(Group group) {
         groups.add(group);
     }
 
-    // Metodă pentru a notifica ghizii despre un eveniment
+
     public void notifyGuides(String organizerMessage) {
         for (Group group : groups) {
             Professor guide = group.getGuide();
@@ -102,7 +102,7 @@ public class Museum {
         return profile;
     }
 
-    // Builder rămâne neschimbat
+
     public static class Builder {
         private String name;
         private long code;
