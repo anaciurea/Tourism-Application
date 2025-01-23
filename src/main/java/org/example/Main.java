@@ -20,7 +20,7 @@ public class Main {
             return;
         }
 
-        // Nu mai folosim blocul try-with-resources
+
         BufferedReader reader = new BufferedReader(new FileReader(inputFilePath));
         BufferedWriter outputWriter = new BufferedWriter(new FileWriter(outputFilePath));
 
@@ -40,10 +40,10 @@ public class Main {
 
         System.out.println("Processing complete. Results written to: " + outputFilePath);
 
-        // Resetăm variabila `database` la `null` pentru a elibera resursele asociate
+
         database = null;
 
-        // Închidem resursele manual
+
         reader.close();
         outputWriter.close();
     }

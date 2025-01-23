@@ -57,7 +57,7 @@ public class Museum {
     }
 
 
-    // Getteri existenți
+    // Getteri existenti
     public String getName() {
         return name;
     }

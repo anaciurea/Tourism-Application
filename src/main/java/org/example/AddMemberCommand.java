@@ -9,10 +9,10 @@ class AddMemberCommand implements Command {
         int age = Integer.parseInt(parts[4].trim());
         String email = parts[5].isEmpty() ? "null" : parts[5].trim();
         String school = parts[6].trim();
-        String role = "vizitator"; // Toți membrii au acest rol în muzeu.
+        String role = "vizitator";
         String additionalInfo = parts[7].trim();
 
-       
+
         System.out.println("Procesare: surname=" + surname + ", name=" + name + ", age=" + age + ", additionalInfo=" + additionalInfo);
 
         Group group = CommandProcessor.findOrCreateGroup(database, museumCode, timetable);
