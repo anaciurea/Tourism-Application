@@ -48,17 +48,16 @@ public class Group {
 //        notifyObservers("Guide removed: " + (this.guide != null ? this.guide.getName() : "None"));
 //        this.guide = null;
 //    }
-public void resetGuide() throws GuideExistsException, GuideTypeException {
-
-//    boolean mustHaveGuide = true; // Schimbă regula după nevoie
-    if(guideExists()) {
+public void resetGuide() throws GuideExistsException{
+    if(guideExists())
         guide = null;
-        System.out.println("ghid sters\n");
-    }
+    else
+        throw new GuideExistsException("## GuideExistsException: Guide already exists. ##");
+//    boolean mustHaveGuide = true; // Schimbă regula după nevoie
 //    if (mustHaveGuide) {
 //        throw new GuideExistsException("Error: Guide cannot be removed without a replacement.");
 //    }
-
+//
 //    this.guide = null; // Eliminăm ghidul doar dacă regula permite
 }
 

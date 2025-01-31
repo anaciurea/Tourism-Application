@@ -70,13 +70,15 @@ public class CommandProcessor {
     }
 
 
-    public static Group findGroup(Database database, int museumCode, String timetable) throws GroupNotExistsException {
+    public static Group findGroup(Database database, int museumCode, String timetable, String parts[]) throws GroupNotExistsException {
+
         return database.getGroups().stream()
                 .filter(g -> g.getMuseumCode() == museumCode && g.getTimetable().equals(timetable))
                 .findFirst()
                 .orElseThrow(() -> new GroupNotExistsException(String.format(
-                        "%d ## %s ## GroupNotExistsException: Group does not exist.",
-                        museumCode, timetable
+                        "%d ## %s ## GroupNotExistsException: Group does not exist. ## (removed member: surname=%s, name=%s, role=%s, age=%s, email=%s, school=%s, %s)",
+                        museumCode, timetable, parts[1], parts[2], parts[8], parts[4], parts[5], parts[6],
+                        parts[8].equalsIgnoreCase("student") ? "studyYear=" + parts[7] : "experience=" + parts[7]
                 )));
     }
 
@@ -91,7 +93,7 @@ public class CommandProcessor {
         String timetable = parts[2].trim();
         String personDetails = parts[3].trim();
 
-        Group group = findGroup(database, museumCode, timetable);
+        Group group = findGroup(database, museumCode, timetable, parts);
         if (group == null) {
 
         }
@@ -113,7 +115,7 @@ public class CommandProcessor {
         String timetable = parts[2].trim();
         String personDetails = parts[3].trim();
 
-        Group group = findGroup(database, museumCode, timetable);
+        Group group = findGroup(database, museumCode, timetable, parts);
         Person member = PersonFactory.createPerson(personDetails);
 
         if (group == null) {

@@ -20,33 +20,31 @@ public class RemoveGuideCommand implements Command {
             return "error: Unexpected input error.";
         }
 
-        Group group = CommandProcessor.findGroup(database, museumCode, timetable);
+        Group group = CommandProcessor.findGroup(database, museumCode, timetable, parts);
         if (group == null) {
             return String.format("%d ## %s ## error: Group does not exist.", museumCode, timetable);
         }
 
 
-        Person removedGuide = group.getGuide();
+        Professor removedGuide = group.getGuide();
         if (removedGuide == null) {
             return String.format("%d ## %s ## error: No guide to remove.", museumCode, timetable);
         }
 
-//        try {
+        try {
             group.resetGuide();
-//        } catch (GuideExistsException e) {
-//            return e.getMessage();
-//        }
-
-        if (removedGuide instanceof Professor) {
-            Professor professor = (Professor) removedGuide;
+        } catch (GuideExistsException e) {
+            return String.format("%d ## %s ## GuideTypeException: Guide cannot be removed due to type restrictions.", museumCode, timetable);
+        }
+//        if (removedGuide instanceof Professor) {
+//            Professor professor = (Professor) removedGuide;
 
             return String.format(
-                    "%d ## %s ## success: removed guide: surname=%s, name=%s, role=ghid, age=%d, email=%s, school=%s, experience=%d",
-                    museumCode, timetable, professor.getSurname(), professor.getName(), professor.getRole(),
-                    professor.getAge(), professor.getEmail(), professor.getSchool(), professor.getExperience()
-            );
-        } else {
-            return String.format("%d ## %s ## error: Removed guide is not a valid professor.", museumCode, timetable);
-        }
+                    "%d ## %s ## removed guide: surname=%s, name=%s, role=ghid, age=%d, email=%s, school=%s, experience=%d",
+                    museumCode, timetable, removedGuide.getSurname(), removedGuide.getName(),
+                    removedGuide.getAge(), removedGuide.getEmail(), removedGuide.getSchool(), removedGuide.getExperience());
+//        } else {
+//            return String.format("%d ## %s ## error: Removed guide is not a valid professor.", museumCode, timetable);
+//        }
     }
 }

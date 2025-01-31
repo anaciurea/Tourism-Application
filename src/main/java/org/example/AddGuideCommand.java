@@ -26,14 +26,13 @@ public class AddGuideCommand implements Command {
 
         Group group = CommandProcessor.findOrCreateGroup(database, museumCode, timetable);
 
-        if (group.getGuide() != null) {
-            throw new GuideExistsException(String.format(
-                    "%d ## %s ## GuideExistsException: Guide already exists. ## (new guide: surname=%s, name=%s, role=ghid, age=%d, email=%s, school=%s, experience=%d)",
-                    museumCode, timetable, surname, name, age, email, school, experience
-            ));
-        }
-
         if (parts[3].equals("profesor")) {
+            if (group.getGuide() != null) {
+                throw new GuideExistsException(String.format(
+                        "%d ## %s ## GuideExistsException: Guide already exists. ## (new guide: surname=%s, name=%s, role=ghid, age=%d, email=%s, school=%s, experience=%d)",
+                        museumCode, timetable, group.getGuide().getSurname(), group.getGuide().getName(), group.getGuide().getAge(), group.getGuide().getEmail(), group.getGuide().getSchool(), group.getGuide().getExperience()
+                ));
+            }
             Professor guide = new Professor(surname, name, "profesor");
             guide.setAge(age);
             guide.setEmail(email);
@@ -42,6 +41,13 @@ public class AddGuideCommand implements Command {
 
             group.addGuide(guide);
             System.out.println("Am adaugat profesorul in grupa" + group.getTimetable() + " " + group.getMuseumCode() + " " + group.getGuide().getName() + "\n");
+        }
+
+        else {
+            throw new GuideTypeException(String.format(
+                    "%d ## %s ## GuideTypeException: Guide must be a professor. ## (new guide: surname=%s, name=%s, role=vizitator, age=%d, email=%s, school=%s, studyYear=%d)",
+                    museumCode, timetable, surname, name, age, email, school, experience
+            ));
         }
 
         System.out.println(group.guideExists());

@@ -1,5 +1,7 @@
 package org.example;
 
+import java.sql.SQLOutput;
+
 class AddMemberCommand implements Command {
     public String execute(String[] parts, Database database) throws Exception {
         int museumCode = Integer.parseInt(parts[9].trim());
@@ -13,15 +15,14 @@ class AddMemberCommand implements Command {
         String additionalInfo = parts[7].trim();
 
 
-        System.out.println("Procesare: surname=" + surname + ", name=" + name + ", age=" + age + ", additionalInfo=" + additionalInfo);
-
+//        System.out.println("Procesare: surname=" + surname + ", name=" + name + ", age=" + age + ", additionalInfo=" + additionalInfo);
         Group group = CommandProcessor.findOrCreateGroup(database, museumCode, timetable);
 
         if (group.getMembers().size() >= 10) {
             throw new GroupThresholdException(String.format(
                     "%d ## %s ## GroupThresholdException: Group cannot have more than 10 members. ## (new member: surname=%s, name=%s, role=%s, age=%d, email=%s, school=%s, %s)",
                     museumCode, timetable, surname, name, role, age, email, school,
-                    parts[8].equals("student") ? "studyYear=" + additionalInfo : "experience=" + additionalInfo
+                    parts[3].equals("student") ? "studyYear=" + additionalInfo : "experience=" + additionalInfo
             ));
         }
 
@@ -51,9 +52,14 @@ class AddMemberCommand implements Command {
 
         group.addMember(member);
 
-        return String.format(
-                "%d ## %s ## new member: surname=%s, name=%s, role=%s, age=%d, email=%s, school=%s, %s",
-                museumCode, timetable, surname, name, role, age, email, school, additionalField
-        );
+        System.out.println("cod muzeu: " + museumCode + "\n");
+
+//        return String.format(
+//                "%d ## %s ## new member: surname=%s, name=%s, role=%s, age=%d, email=%s, school=%s, %s",
+//                museumCode, timetable, surname, name, role, age, email, school, additionalField
+//        );
+
+        return museumCode + " ## " + timetable + " ## new member: surname=" + surname + ", name=" + name + ", role=" + role + ", age=" + age + ", email=" + email + ", school=" + school + ", " + additionalField;
+
     }
 }

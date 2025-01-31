@@ -8,7 +8,7 @@ class RemoveMemberCommand implements Command {
         String name = parts[2].trim();
         String surname = parts[1].trim();
 
-        Group group = CommandProcessor.findGroup(database, museumCode, timetable);
+        Group group = CommandProcessor.findGroup(database, museumCode, timetable, parts);
         if (group == null) {
             throw new GroupNotExistsException(String.format(
                     "%d ## %s ## GroupNotExistsException: Group does not exist. ## (surname=%s, name=%s, role=%s, age=%s, email=%s, school=%s, %s)",
