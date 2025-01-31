@@ -63,7 +63,7 @@ public class CommandProcessor {
         }
 
         if (group.getObservers().isEmpty()) {
-            group.addObserver(new GroupLogger());
+//            group.addObserver(new GroupLogger());
         }
 
         return group;

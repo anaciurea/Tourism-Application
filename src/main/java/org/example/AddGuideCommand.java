@@ -2,14 +2,27 @@ package org.example;
 
 public class AddGuideCommand implements Command {
     public String execute(String[] parts, Database database) throws Exception {
-        int museumCode = Integer.parseInt(parts[9].trim());
-        String timetable = parts[10].trim();
-        String name = parts[2].trim();
-        String surname = parts[1].trim();
-        int age = Integer.parseInt(parts[4].trim());
-        String email = parts[5].trim();
-        String school = parts[6].trim();
-        int experience = Integer.parseInt(parts[7].trim());
+        int museumCode;
+        String timetable;
+        String name;
+        String surname;
+        int age;
+        String email;
+        String school;
+        int experience;
+
+        try {
+            museumCode = Integer.parseInt(parts[9].trim());
+            timetable = parts[10].trim();
+            name = parts[2].trim();
+            surname = parts[1].trim();
+            age = Integer.parseInt(parts[4].trim());
+            email = parts[5].trim();
+            school = parts[6].trim();
+            experience = Integer.parseInt(parts[7].trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid input format detected.");
+        }
 
         Group group = CommandProcessor.findOrCreateGroup(database, museumCode, timetable);
 
@@ -20,15 +33,18 @@ public class AddGuideCommand implements Command {
             ));
         }
 
-        if (parts[3].equals("professor")) {
-            Professor guide = new Professor(surname, name, "professor");
+        if (parts[3].equals("profesor")) {
+            Professor guide = new Professor(surname, name, "profesor");
             guide.setAge(age);
             guide.setEmail(email);
             guide.setSchool(school);
             guide.setExperience(experience);
 
             group.addGuide(guide);
+            System.out.println("Am adaugat profesorul in grupa" + group.getTimetable() + " " + group.getMuseumCode() + " " + group.getGuide().getName() + "\n");
         }
+
+        System.out.println(group.guideExists());
 
         return String.format(
                 "%d ## %s ## new guide: surname=%s, name=%s, role=ghid, age=%d, email=%s, school=%s, experience=%d",

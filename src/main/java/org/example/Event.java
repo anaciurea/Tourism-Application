@@ -2,9 +2,10 @@ package org.example;
 
 public class Event {
     private String organizerMessage;
-    private String museumCode;
+    private long museumCode;
+    private String message;
 
-    public Event(String museumCode, String organizerMessage) {
+    public Event(long museumCode, String organizerMessage) {
         this.museumCode = museumCode;
         this.organizerMessage = organizerMessage;
     }
@@ -13,7 +14,14 @@ public class Event {
         return organizerMessage;
     }
 
-    public String getMuseumCode() {
+    public long getMuseumCode() {
         return museumCode;
+    }
+
+    public String toString() {
+        return "Event at Museum " + museumCode;
+    }
+    public String getMessage() {
+        return message;
     }
 }

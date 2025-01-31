@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Group {
     private List<Person> members;
-    private Professor guide;
+    private Professor guide = null;
     private Integer museumCode;
     private String timetable;
 
@@ -33,21 +33,36 @@ public class Group {
         }
     }
 
-    public void addGuide(Person guide) throws GuideExistsException, GuideTypeException {
+    public void addGuide(Professor guide) throws GuideExistsException {
         if (this.guide != null) {
             throw new GuideExistsException("A guide already exists for this group.");
         }
-        if (!(guide instanceof Professor)) {
-            throw new GuideTypeException("Guide must be a professor.");
-        }
-        this.guide = (Professor) guide;
+//        if (!(guide instanceof Professor)) {
+//            throw new GuideTypeException("Guide must be a professor.");
+//        }
+        this.guide = guide;
         notifyObservers("Guide added: " + guide.getName());
     }
 
-    public void resetGuide() {
-        notifyObservers("Guide removed: " + (this.guide != null ? this.guide.getName() : "None"));
-        this.guide = null;
+//    public void resetGuide() throws  GuideExistsException{
+//        notifyObservers("Guide removed: " + (this.guide != null ? this.guide.getName() : "None"));
+//        this.guide = null;
+//    }
+public void resetGuide() throws GuideExistsException, GuideTypeException {
+
+//    boolean mustHaveGuide = true; // Schimbă regula după nevoie
+    if(guideExists()) {
+        guide = null;
+        System.out.println("ghid sters\n");
     }
+//    if (mustHaveGuide) {
+//        throw new GuideExistsException("Error: Guide cannot be removed without a replacement.");
+//    }
+
+//    this.guide = null; // Eliminăm ghidul doar dacă regula permite
+}
+
+
 
     public void addMember(Person member) throws GroupThresholdException {
         if (members.size() >= 10) {
@@ -70,6 +85,12 @@ public class Group {
 
     public Professor getGuide() {
         return guide;
+    }
+    public boolean guideExists(){
+        if(guide != null)
+            return true;
+        else
+            return false;
     }
 
     public Integer getMuseumCode() {

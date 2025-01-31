@@ -2,12 +2,19 @@ package org.example;
 import javax.xml.crypto.Data;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import org.example.Event;
+
+
 
 public class Database {
     private static Database instance;
 
     private Set<Museum> museums;
     private Set<Group> groups;
+    private List<Event> events = new ArrayList<>();
+
 
     private Database() {
         this.museums = new HashSet<>();
@@ -63,6 +70,24 @@ public class Database {
     public void resetDatabase() {
         groups.clear();
         museums.clear();
+    }
+
+    public String getMuseumName(long museumCode) {
+        for (Museum museum : museums) {
+            if (museum.getCode() == museumCode) {
+                return museum.getName();
+            }
+        }
+        return "Unknown Museum";
+    }
+
+    public void addEvent(long museumCode, String message) {
+        Museum museum = getMuseumByCode(museumCode);
+        if (museum != null) {
+            museum.notifyGuides(message);
+        } else {
+            System.out.println("Error: Museum with code " + museumCode + " not found.");
+        }
     }
 
 }

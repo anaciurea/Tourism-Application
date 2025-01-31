@@ -2,36 +2,51 @@ package org.example;
 
 public class RemoveGuideCommand implements Command {
     public String execute(String[] parts, Database database) throws Exception {
-        int museumCode = Integer.parseInt(parts[1].trim());
-        String timetable = parts[2].trim();
+        Integer museumCode;
+        String timetable;
+        System.out.println("DEBUG: Processing command -> " + parts[0]);
+
+        try {
+            if (parts.length < 3) {
+                return "error: Insufficient input data.";
+            }
+
+            museumCode = Integer.parseInt(parts[9].trim());
+            timetable = parts[10].trim();
+            System.out.println(museumCode + "codul muzeului");
+        } catch (NumberFormatException e) {
+            return String.format("error: Invalid input format for museumCode: %s.", parts[9]);
+        } catch (Exception e) {
+            return "error: Unexpected input error.";
+        }
 
         Group group = CommandProcessor.findGroup(database, museumCode, timetable);
         if (group == null) {
-            throw new GroupNotExistsException(String.format(
-                    "%d ## %s ## GroupNotExistsException: Group does not exist for the specified museum code and timetable.",
-                    museumCode, timetable
-            ));
+            return String.format("%d ## %s ## error: Group does not exist.", museumCode, timetable);
         }
+
 
         Person removedGuide = group.getGuide();
         if (removedGuide == null) {
-            throw new IllegalArgumentException(String.format(
-                    "%d ## %s ## No guide exists for the specified group.",
-                    museumCode, timetable
-            ));
+            return String.format("%d ## %s ## error: No guide to remove.", museumCode, timetable);
         }
 
-        group.resetGuide();
+//        try {
+            group.resetGuide();
+//        } catch (GuideExistsException e) {
+//            return e.getMessage();
+//        }
 
         if (removedGuide instanceof Professor) {
             Professor professor = (Professor) removedGuide;
+
             return String.format(
-                    "%d ## %s ## removed guide: surname=%s, name=%s, role=ghid, age=%d, email=%s, school=%s, experience=%d",
+                    "%d ## %s ## success: removed guide: surname=%s, name=%s, role=ghid, age=%d, email=%s, school=%s, experience=%d",
                     museumCode, timetable, professor.getSurname(), professor.getName(), professor.getRole(),
                     professor.getAge(), professor.getEmail(), professor.getSchool(), professor.getExperience()
             );
         } else {
-            throw new IllegalArgumentException("The removed guide is not a professor.");
+            return String.format("%d ## %s ## error: Removed guide is not a valid professor.", museumCode, timetable);
         }
     }
 }

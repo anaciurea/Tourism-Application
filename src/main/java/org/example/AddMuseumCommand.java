@@ -4,7 +4,7 @@ package org.example;
 public class AddMuseumCommand implements Command{
     public String execute(String[] parts, Database database) throws Exception {
         try {
-            if (parts.length < 5)
+            if (parts.length < 6)
                 throw new IndexOutOfBoundsException("Insufficient data");
 
             long code = Long.parseLong(parts[1].trim());

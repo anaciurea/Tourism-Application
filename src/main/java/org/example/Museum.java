@@ -44,18 +44,6 @@ public class Museum {
     }
 
 
-    public void notifyGuides(String organizerMessage) {
-        for (Group group : groups) {
-            Professor guide = group.getGuide();
-            if (guide != null && guide.getEmail() != null) {
-                System.out.printf(
-                        "To: %s ## Message: %s (%d) %s%n",
-                        guide.getEmail(), name, code, organizerMessage
-                );
-            }
-        }
-    }
-
 
     // Getteri existenti
     public String getName() {
@@ -171,10 +159,34 @@ public class Museum {
 
     public boolean isValid() {
         return name != null && !name.isEmpty() &&
-                location != null &&
-                phoneNumber != null && !phoneNumber.isEmpty() &&
-                email != null && !email.isEmpty() &&
-                foundingYear != null;
+                location != null;
     }
+
+    //?
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Museum museum = (Museum) obj;
+        return code == museum.code;
+    }
+
+    @Override
+    public int hashCode() {
+        return Long.hashCode(code);
+    }
+
+    public void notifyGuides(String organizerMessage) {
+        for (Group group : groups) { // Iterează prin toate grupurile asociate muzeului
+            Professor guide = group.getGuide();
+            if (guide != null && guide.getEmail() != null) {
+                System.out.printf(
+                        "To: %s ## Message: %s (%d) %s%n",
+                        guide.getEmail(), name, code, organizerMessage
+                );
+            }
+        }
+    }
+
 
 }
