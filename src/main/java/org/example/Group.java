@@ -120,4 +120,13 @@ public void resetGuide() throws GuideExistsException{
         return observers;
     }
 
+    public boolean findMember(String name) {
+        for(Person person : members) {
+            if(person.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

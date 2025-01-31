@@ -11,18 +11,21 @@ public class Main {
             return;
         }
 
-        String inputFilePath = args[0];
-        String outputFilePath = args[1];
+        StringBuilder inputFilePath = new StringBuilder(args[1]);
+        inputFilePath.append(".in");
+        StringBuilder outputFilePath = new StringBuilder(args[1]);
+        outputFilePath.append(".out");
 
-        File inputFile = new File(inputFilePath);
+        File inputFile = new File(inputFilePath.toString());
+        File outputFile = new File(outputFilePath.toString());
         if (!inputFile.exists() || !inputFile.isFile()) {
             System.err.println("Error: Input file does not exist: " + inputFilePath);
             return;
         }
 
 
-        BufferedReader reader = new BufferedReader(new FileReader(inputFilePath));
-        BufferedWriter outputWriter = new BufferedWriter(new FileWriter(outputFilePath));
+        BufferedReader reader = new BufferedReader(new FileReader(inputFilePath.toString()));
+        BufferedWriter outputWriter = new BufferedWriter(new FileWriter(outputFilePath.toString()));
 
         Database database = Database.getInstance();
 

@@ -72,14 +72,15 @@ public class CommandProcessor {
 
     public static Group findGroup(Database database, int museumCode, String timetable, String parts[]) throws GroupNotExistsException {
 
-        return database.getGroups().stream()
-                .filter(g -> g.getMuseumCode() == museumCode && g.getTimetable().equals(timetable))
-                .findFirst()
-                .orElseThrow(() -> new GroupNotExistsException(String.format(
-                        "%d ## %s ## GroupNotExistsException: Group does not exist. ## (removed member: surname=%s, name=%s, role=%s, age=%s, email=%s, school=%s, %s)",
-                        museumCode, timetable, parts[1], parts[2], parts[8], parts[4], parts[5], parts[6],
-                        parts[8].equalsIgnoreCase("student") ? "studyYear=" + parts[7] : "experience=" + parts[7]
-                )));
+        Group gr = null;
+
+        for(Group g : database.getGroups())
+            if(g.getTimetable().equals(timetable) && g.getMuseumCode().equals(museumCode)){
+                gr = g;
+                break;
+            }
+
+        return gr;
     }
 
 
@@ -116,17 +117,22 @@ public class CommandProcessor {
         String personDetails = parts[3].trim();
 
         Group group = findGroup(database, museumCode, timetable, parts);
-        Person member = PersonFactory.createPerson(personDetails);
-
+//        Person member = PersonFactory.createPerson(personDetails);
         if (group == null) {
             throw new GroupNotExistsException("Group does not exist.");
         }
-
-        if (group.getMembers().contains(member)) {
-            return museumCode + " ## " + timetable + " member found: " + member;
+        System.out.println(group.findMember(parts[1]));
+        if(group.findMember(parts[1])) {
+            return museumCode + " ## " + timetable + " member found: surname=" + parts[1] + ", name=" + parts[2] + ", role=" + parts[3] + ", age=" + parts[4] + ", email=" + parts[5] + ", school=" + parts[6] + ", experience=" + parts[7];
         } else {
-            return museumCode + " ## " + timetable + " member not exists: " + member;
+            return museumCode + " ## " + timetable + " member not exists: surname=" + parts[1] + ", name=" + parts[2] + ", role=" + parts[3] + ", age=" + parts[4] + ", email=" + parts[5] + ", school=" + parts[6] + ", experience=" + parts[7];
         }
+//
+//        if (group.getMembers().contains(member)) {
+//            return museumCode + " ## " + timetable + " member found: " + member;
+//        } else {
+//            return museumCode + " ## " + timetable + " member not exists: " + member;
+//        }
     }
 
 }

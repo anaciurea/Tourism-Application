@@ -16,7 +16,14 @@ class AddMemberCommand implements Command {
 
 
 //        System.out.println("Procesare: surname=" + surname + ", name=" + name + ", age=" + age + ", additionalInfo=" + additionalInfo);
-        Group group = CommandProcessor.findOrCreateGroup(database, museumCode, timetable);
+        Group group = CommandProcessor.findGroup(database, museumCode, timetable, parts);
+
+        if (group == null) {
+            throw new GroupNotExistsException(String.format( "%d ## %s ## GroupNotExistsException: Group does not exist. ## (new member: surname=%s, name=%s, role=%s, age=%s, email=%s, school=%s, %s)",
+                    museumCode, timetable, surname, name, parts[8], parts[4], email, parts[6],
+                    parts[3].equalsIgnoreCase("student") ? "studyYear=" + parts[7] : "experience=" + parts[7]
+            ));
+        }
 
         if (group.getMembers().size() >= 10) {
             throw new GroupThresholdException(String.format(
@@ -52,7 +59,7 @@ class AddMemberCommand implements Command {
 
         group.addMember(member);
 
-        System.out.println("cod muzeu: " + museumCode + "\n");
+//        System.out.println("cod muzeu: " + museumCode + "\n");
 
 //        return String.format(
 //                "%d ## %s ## new member: surname=%s, name=%s, role=%s, age=%d, email=%s, school=%s, %s",
