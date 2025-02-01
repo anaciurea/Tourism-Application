@@ -1,3 +1,15 @@
 Proiect 2025
-ÉSkipping first line: commanda|codul entitatii muzeale|denumirea (romana)|judetul|localitatea|unitatea administrativa|adresa|codul postal|telefon|fax|anul infiintarii|URL|e-mail|director|codul institutiei coordonatoare|profilul principal (romana)|codul SIRUTA al localitatii|categoria (romana)|latitudine|longitudine|coordonatele
-^Processing complete. Results written to: src/main/resources/07-museum-listener/museums_03.out
+ŒSkipping first line: Comanda|Prenume|Nume|Titulatura|Varsta|Email|Scoala|Anul de studii/experienta profesionala|Rol|Cod muzeu|Interval orar
+Log: Guide added: Radu
+Log: Guide added: Stan
+Log: Member added: Nistor
+Log: Member added: Diaconescu
+Log: Member added: Popescu
+Log: Member added: Ionescu
+Log: Member added: Dumitrescu
+Log: Member added: Georgescu
+Log: Member added: Stoica
+Log: Member added: Radu
+Log: Member added: Marin
+Log: Member added: Diaconescu
+[Processing complete. Results written to: src/main/resources/04-errored-guide/groups_02.out

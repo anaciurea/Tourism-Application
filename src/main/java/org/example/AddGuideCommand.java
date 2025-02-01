@@ -33,13 +33,24 @@ public class AddGuideCommand implements Command {
                         museumCode, timetable, group.getGuide().getSurname(), group.getGuide().getName(), group.getGuide().getAge(), group.getGuide().getEmail(), group.getGuide().getSchool(), group.getGuide().getExperience()
                 ));
             }
-            Professor guide = new Professor(surname, name, "profesor");
-            guide.setAge(age);
-            guide.setEmail(email);
-            guide.setSchool(school);
-            guide.setExperience(experience);
+//            Professor guide = new Professor(surname, name, "profesor");
+//            guide.setAge(age);
+//            guide.setEmail(email);
+//            guide.setSchool(school);
+//            guide.setExperience(experience);
 
-            group.addGuide(guide);
+            Person guide = PersonFactory.createPerson(
+                    parts[1],                // Prenume (String)
+                    parts[2],                // Nume (String)
+                    parts[8],                // Rol (String)
+                    Integer.parseInt(parts[4]), // Varsta (int)
+                    parts[5],                // Email (String)
+                    parts[6],                // Scoala (String)
+                    Integer.parseInt(parts[7])  // Anul de studii / Experiență (int)
+            );
+
+
+            group.addGuide((Professor) guide);
         }
 
         else {
