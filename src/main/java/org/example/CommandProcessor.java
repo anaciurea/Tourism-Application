@@ -92,8 +92,6 @@ public class CommandProcessor {
         int museumCode = Integer.parseInt(parts[9].trim());
         String timetable = parts[10].trim();
 
-        System.out.println("DEBUG: Searching for guide " + parts[1] + " " + parts[2] + " in museum " + museumCode + " at " + timetable);
-
         Group group = findGroup(database, museumCode, timetable, parts);
         if (group == null) {
             throw new GroupNotExistsException("Group does not exist.");

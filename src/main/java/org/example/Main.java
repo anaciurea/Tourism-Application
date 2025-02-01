@@ -7,11 +7,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("Proiect 2025");
 
-//        if (args.length < 2) {
-//            System.out.println("Usage: java Main <inputFilePath> <outputFilePath> [<groupsFilePath>] [<eventsFilePath>]");
-//            return;
-//        }
-
         StringBuilder inputFilePath = new StringBuilder(args[1]);
         inputFilePath.append(".in");
         StringBuilder outputFilePath = new StringBuilder(args[1]);

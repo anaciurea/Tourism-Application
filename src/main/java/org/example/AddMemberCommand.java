@@ -1,7 +1,5 @@
 package org.example;
 
-import java.sql.SQLOutput;
-
 class AddMemberCommand implements Command {
     public String execute(String[] parts, Database database) throws Exception {
         int museumCode = Integer.parseInt(parts[9].trim());
