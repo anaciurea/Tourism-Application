@@ -40,13 +40,13 @@ public class AddGuideCommand implements Command {
 //            guide.setExperience(experience);
 
             Person guide = PersonFactory.createPerson(
-                    parts[1],                // Prenume (String)
-                    parts[2],                // Nume (String)
-                    parts[8],                // Rol (String)
-                    Integer.parseInt(parts[4]), // Varsta (int)
-                    parts[5],                // Email (String)
-                    parts[6],                // Scoala (String)
-                    Integer.parseInt(parts[7])  // Anul de studii / Experiență (int)
+                    parts[1],
+                    parts[2],
+                    parts[8],
+                    Integer.parseInt(parts[4]),
+                    parts[5],
+                    parts[6],
+                    Integer.parseInt(parts[7])
             );
 
 
