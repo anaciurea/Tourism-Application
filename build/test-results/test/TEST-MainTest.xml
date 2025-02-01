@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MainTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-02-01T09:42:46" hostname="Ana" time="0.169">
+<testsuite name="MainTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-02-01T13:28:46" hostname="Ana" time="0.133">
   <properties/>
-  <testcase name="findGroups06()" classname="MainTest" time="0.169"/>
+  <testcase name="findGroups06()" classname="MainTest" time="0.133"/>
   <system-out><![CDATA[Proiect 2025
 Skipping first line: Comanda|Prenume|Nume|Titulatura|Varsta|Email|Scoala|Anul de studii/experienta profesionala|Rol|Cod muzeu|Interval orar
 true

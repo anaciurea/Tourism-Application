@@ -1,3 +1,4 @@
+
 package org.example;
 
 public class CommandProcessor {
@@ -158,6 +159,6 @@ public class CommandProcessor {
             return museumCode + " ## " + timetable + " ## member found: surname=" + parts[1] + ", name=" + parts[2] + ", role=" + parts[8] + ", age=" + parts[4] + ", email=" + parts[5] + ", school=" + parts[6] + ", experience=" + parts[7];
         } else {
             return museumCode + " ## " + timetable + " ## member not exists: surname=" + parts[1] + ", name=" + parts[2] + ", role=" + parts[8] + ", age=" + parts[4] + ", email=" + parts[5]+ ", school=" + parts[6] + ", experience=" + parts[7];         }
-        }
+    }
 
 }
