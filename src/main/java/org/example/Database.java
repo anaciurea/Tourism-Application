@@ -67,19 +67,6 @@ public class Database {
         }
         return null;
     }
-    public void resetDatabase() {
-        groups.clear();
-        museums.clear();
-    }
-
-    public String getMuseumName(long museumCode) {
-        for (Museum museum : museums) {
-            if (museum.getCode() == museumCode) {
-                return museum.getName();
-            }
-        }
-        return "Unknown Museum";
-    }
 
     public void addEvent(long museumCode, String message) {
         Museum museum = getMuseumByCode(museumCode);

@@ -1,12 +1,3 @@
 Proiect 2025
-ŒSkipping first line: Comanda|Prenume|Nume|Titulatura|Varsta|Email|Scoala|Anul de studii/experienta profesionala|Rol|Cod muzeu|Interval orar
-true
-false
-true
-GDEBUG: Searching for guide Florin Georgescu in museum 7300203 at 11-13
-'DEBUG: Guide found -> Florin Georgescu
-GDEBUG: Searching for guide Florin Georgescu in museum 7300203 at 13-15
-!DEBUG: Guide found -> Elena Radu
-DDEBUG: Searching for guide Sorin Ionescu in museum 7300203 at 13-15
-!DEBUG: Guide found -> Elena Radu
-YProcessing complete. Results written to: src/main/resources/06-find-groups/groups_04.out
+ÉSkipping first line: commanda|codul entitatii muzeale|denumirea (romana)|judetul|localitatea|unitatea administrativa|adresa|codul postal|telefon|fax|anul infiintarii|URL|e-mail|director|codul institutiei coordonatoare|profilul principal (romana)|codul SIRUTA al localitatii|categoria (romana)|latitudine|longitudine|coordonatele
+^Processing complete. Results written to: src/main/resources/07-museum-listener/museums_03.out

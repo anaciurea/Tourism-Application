@@ -157,36 +157,11 @@ public class Museum {
         return code + ": " + name;
     }
 
-    public boolean isValid() {
-        return name != null && !name.isEmpty() &&
-                location != null;
-    }
-
-    //?
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Museum museum = (Museum) obj;
-        return code == museum.code;
-    }
-
-    @Override
-    public int hashCode() {
-        return Long.hashCode(code);
-    }
 
     public void notifyGuides(String organizerMessage) {
-        for (Group group : groups) { // Iterează prin toate grupurile asociate muzeului
-            Professor guide = group.getGuide();
-            if (guide != null && guide.getEmail() != null) {
-                System.out.printf(
-                        "To: %s ## Message: %s (%d) %s%n",
-                        guide.getEmail(), name, code, organizerMessage
-                );
-            }
+        for (Group group : groups) {
+            group.update(organizerMessage);
         }
     }
-
 
 }

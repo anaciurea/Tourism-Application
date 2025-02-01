@@ -124,4 +124,9 @@ public class Group {
         return false;
     }
 
+    public void update(String eventMessage) {
+        if (guide != null && guide.getEmail() != null) {
+            System.out.printf("To: %s ## Message: %s%n", guide.getEmail(), eventMessage);
+        }
+    }
 }

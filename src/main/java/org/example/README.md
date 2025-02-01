@@ -1,11 +1,14 @@
- Ciurea Ana - Sorina 321 CC
 # POO Project 2025 - Tourism Application
 
 ## Project Description
 This application manages the database of museums and the organization of tourist groups.
 It is responsible for adding, searching, and managing guides, visitors, and museums efficiently.
 
-## 📐 Design Patterns Used
+## Classes and exceptions:
+Database, Museum, Person (Student and Professor extends Person), Location and Event are classes that were required.
+Aditionally, GroupNotExistsException, GroupThresholdException, GuideExistsException, GuideTypeException, PersonNotExistsException are exceptions that extend Exception class. 
+
+## Design Patterns Used
 For implementing this project, we have used the following design patterns:
 
 ### 1️⃣ **Singleton** - `Database.java`
@@ -87,42 +90,28 @@ For implementing this project, we have used the following design patterns:
   }
   ```
 
+### 3️⃣ **Factory Method** - `PersonFactory.java`
+**Motivation:**
+- Centralizes the creation of `Student` and `Professor` objects, simplifying object instantiation and reducing code duplication.
+- Implementation:
   ```java
-  public class Museum {
-      private String name;
-      private long code;
-      private long supervisorCode;
-      private Location location;
-      
-      private Museum(Builder builder) {
-          this.name = builder.name;
-          this.code = builder.code;
-          this.supervisorCode = builder.supervisorCode;
-          this.location = builder.location;
-      }
-      
-      public static class Builder {
-          private String name;
-          private long code;
-          private long supervisorCode;
-          private Location location;
-      
-          public Builder(String name, long code, long supervisorCode, Location location) {
-              this.name = name;
-              this.code = code;
-              this.supervisorCode = supervisorCode;
-              this.location = location;
+  public class PersonFactory {
+      public static Person createPerson(String surname, String name, String role, int age, String email, String school, int studyYear, int experience) {
+          if (role.equalsIgnoreCase("student")) {
+              return new Student(surname, name, role, school, studyYear);
+          } else if (role.equalsIgnoreCase("professor")) {
+              return new Professor(surname, name, role, school, experience);
           }
-          
-          public Museum build() {
-              return new Museum(this);
-          }
+          throw new IllegalArgumentException("Invalid role type");
       }
   }
   ```
 
-### 3️⃣ **Observer** - `Group.java`
+### 4️⃣ **Observer** - `Group.java`
 **Motivation:**
+-  Define a one-to-many dependency between
+   objects so that all dependents are notified & updated
+   when one object changes state.
 - Ensures that guides are notified about events organized by museums.
 - Implementation:
   ```java
@@ -138,8 +127,9 @@ For implementing this project, we have used the following design patterns:
   }
   ```
 
-### 4️⃣ **Command** - `CommandProcessor.java`
+### 5️⃣ **Command** - `CommandProcessor.java`
 **Motivation:**
+-  Encapsulate the request for a service.
 - Allows the execution of commands without affecting the main structure of the program.
 - Implementation:
   ```java
@@ -166,6 +156,6 @@ For implementing this project, we have used the following design patterns:
 - **Remove guides and members** (`REMOVE GUIDE`, `REMOVE MEMBER`)
 - **Manage museum events** (`ADD EVENT`)
 
-## 📌 Conclusion
-This project follows OOP principles and implements **4 design patterns** for a clear and extensible architecture.
-Using **Singleton, Builder, Observer, and Command** ensures scalability and ease of maintenance. 🚀
+## Conclusion
+This project follows OOP principles and implements **5 design patterns** for a clear and extensible architecture.
+Using **Singleton, Builder, Factory Method, Observer, and Command** ensures scalability and ease of maintenance.

@@ -64,7 +64,7 @@ public class CommandProcessor {
         }
 
         if (group.getObservers().isEmpty()) {
-//            group.addObserver(new GroupLogger());
+               group.addObserver(new GroupLogger());
         }
 
         return group;
@@ -84,30 +84,6 @@ public class CommandProcessor {
     }
 
 
-//    public static String findGuide(String[] parts, Database database) throws GroupNotExistsException {
-//        if (parts.length < 4) {
-//            throw new IllegalArgumentException("Invalid FIND GUIDE command format");
-//        }
-//
-//        int museumCode = Integer.parseInt(parts[9].trim());
-//        String timetable = parts[10].trim();
-//        String personDetails = parts[3].trim();
-//        String role = "vizitator";
-//
-//
-//        Group group = findGroup(database, museumCode, timetable, parts);
-//        if (group == null) {
-//            throw new GroupNotExistsException("Group does not exist.");
-//        }
-//
-//        if (group.findMember(parts[2]) && group.findMemberBySurname(parts[1]) && group.getTimetable().equals(parts[10]) && parts[3].equals("profesor") && parts[8].equals("ghid")) {
-//            return museumCode + " ## " + timetable + " ## guide found: surname=" + parts[1] + ", name=" + parts[2] + ", role=" + parts[3] + ", age=" + parts[4] + ", email=" + parts[5] + ", school=" + parts[6] + ", experience=" + parts[7];
-//        } else {
-//            return museumCode + " ## " + timetable + " ## guide not exists: surname=" + parts[1] + ", name=" + parts[2] + ", role=" + parts[8] + ", age=" + parts[4] + ", email=" + parts[5] + ", school=" + parts[6] + ", experience=" + parts[7];
-//        }
-//
-//    }
-
     public static String findGuide(String[] parts, Database database) throws GroupNotExistsException {
         if (parts.length < 11) {
             throw new IllegalArgumentException("Invalid FIND GUIDE command format");
@@ -123,16 +99,12 @@ public class CommandProcessor {
             throw new GroupNotExistsException("Group does not exist.");
         }
 
-        // Verifică dacă ghidul există și este corect
         if (group.getGuide() != null) {
-            System.out.println("DEBUG: Guide found -> " + group.getGuide().getSurname() + " " + group.getGuide().getName());
             if (group.getGuide().getSurname().equalsIgnoreCase(parts[1]) &&
                     group.getGuide().getName().equalsIgnoreCase(parts[2]) &&
                     parts[8].equalsIgnoreCase("ghid")) {
                 return museumCode + " ## " + timetable + " ## guide found: surname=" + parts[1] + ", name=" + parts[2] + ", role=ghid, age=" + parts[4] + ", email=" + parts[5] + ", school=" + parts[6] + ", experience=" + parts[7];
             }
-        } else {
-            System.out.println("DEBUG: No guide found in this group.");
         }
 
         return museumCode + " ## " + timetable + " ## guide not exists: surname=" + parts[1] + ", name=" + parts[2] + ", role=" + parts[8] + ", age=" + parts[4] + ", email=" + parts[5]+ ", school=" + parts[6] + ", experience=" + parts[7];

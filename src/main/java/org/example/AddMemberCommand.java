@@ -15,7 +15,6 @@ class AddMemberCommand implements Command {
         String additionalInfo = parts[7].trim();
 
 
-//        System.out.println("Procesare: surname=" + surname + ", name=" + name + ", age=" + age + ", additionalInfo=" + additionalInfo);
         Group group = CommandProcessor.findGroup(database, museumCode, timetable, parts);
 
         if (group == null) {

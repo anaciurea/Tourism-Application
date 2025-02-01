@@ -40,7 +40,6 @@ public class AddGuideCommand implements Command {
             guide.setExperience(experience);
 
             group.addGuide(guide);
-//            System.out.println("Am adaugat profesorul in grupa" + group.getTimetable() + " " + group.getMuseumCode() + " " + group.getGuide().getName() + "\n");
         }
 
         else {
@@ -49,8 +48,6 @@ public class AddGuideCommand implements Command {
                     museumCode, timetable, surname, name, age, email, school, experience
             ));
         }
-
-//        System.out.println(group.guideExists());
 
         return String.format(
                 "%d ## %s ## new guide: surname=%s, name=%s, role=ghid, age=%d, email=%s, school=%s, experience=%d",
