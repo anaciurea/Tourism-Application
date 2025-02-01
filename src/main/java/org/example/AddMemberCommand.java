@@ -59,13 +59,6 @@ class AddMemberCommand implements Command {
 
         group.addMember(member);
 
-//        System.out.println("cod muzeu: " + museumCode + "\n");
-
-//        return String.format(
-//                "%d ## %s ## new member: surname=%s, name=%s, role=%s, age=%d, email=%s, school=%s, %s",
-//                museumCode, timetable, surname, name, role, age, email, school, additionalField
-//        );
-
         return museumCode + " ## " + timetable + " ## new member: surname=" + surname + ", name=" + name + ", role=" + role + ", age=" + age + ", email=" + email + ", school=" + school + ", " + additionalField;
 
     }

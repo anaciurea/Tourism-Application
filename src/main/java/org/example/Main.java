@@ -43,10 +43,6 @@ public class Main {
 
         System.out.println("Processing complete. Results written to: " + outputFilePath);
 
-
-        database = null;
-
-
         reader.close();
         outputWriter.close();
     }

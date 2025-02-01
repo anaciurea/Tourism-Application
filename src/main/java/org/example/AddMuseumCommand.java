@@ -10,13 +10,11 @@ public class AddMuseumCommand implements Command{
             long code = Long.parseLong(parts[1].trim());
 
             String name = parts[2].trim();
-            System.out.println(name + "nameIsEmpty?" + name.isEmpty());
             if (name.isEmpty())
                 throw new NullPointerException("Missing museum name");
 
 
             String county = parts[3].trim();
-            System.out.println(county + "nameIsEmpty?" + county.isEmpty());
             if (county.isEmpty())
                 throw new NullPointerException("Missing county information");
 

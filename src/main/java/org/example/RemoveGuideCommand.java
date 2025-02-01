@@ -36,15 +36,11 @@ public class RemoveGuideCommand implements Command {
         } catch (GuideExistsException e) {
             return String.format("%d ## %s ## GuideTypeException: Guide cannot be removed due to type restrictions.", museumCode, timetable);
         }
-//        if (removedGuide instanceof Professor) {
-//            Professor professor = (Professor) removedGuide;
 
             return String.format(
                     "%d ## %s ## removed guide: surname=%s, name=%s, role=ghid, age=%d, email=%s, school=%s, experience=%d",
                     museumCode, timetable, removedGuide.getSurname(), removedGuide.getName(),
                     removedGuide.getAge(), removedGuide.getEmail(), removedGuide.getSchool(), removedGuide.getExperience());
-//        } else {
-//            return String.format("%d ## %s ## error: Removed guide is not a valid professor.", museumCode, timetable);
-//        }
+
     }
 }

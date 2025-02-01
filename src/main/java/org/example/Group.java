@@ -37,24 +37,16 @@ public class Group {
         if (this.guide != null) {
             throw new GuideExistsException("A guide already exists for this group.");
         }
-//        if (!(guide instanceof Professor)) {
-//            throw new GuideTypeException("Guide must be a professor.");
-//        }
         this.guide = guide;
         notifyObservers("Guide added: " + guide.getName());
     }
 
-//    public void resetGuide() throws  GuideExistsException{
-//        notifyObservers("Guide removed: " + (this.guide != null ? this.guide.getName() : "None"));
-//        this.guide = null;
-//    }
     public void resetGuide() throws GuideExistsException{
         if(guideExists())
             guide = null;
         else
             throw new GuideExistsException("## GuideExistsException: Guide already exists. ##");
     }
-
 
 
     public void addMember(Person member) throws GroupThresholdException {
@@ -117,6 +109,15 @@ public class Group {
     public boolean findMember(String name) {
         for(Person person : members) {
             if(person.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean findMemberBySurname(String surname) {
+        for(Person person : members) {
+            if(person.getSurname().equals(surname)) {
                 return true;
             }
         }
