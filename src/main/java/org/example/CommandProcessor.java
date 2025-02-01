@@ -114,7 +114,6 @@ public class CommandProcessor {
 
         int museumCode = Integer.parseInt(parts[9].trim());
         String timetable = parts[10].trim();
-        String email = parts[5];
 
         System.out.println("DEBUG: Searching for guide " + parts[1] + " " + parts[2] + " in museum " + museumCode + " at " + timetable);
 
@@ -129,13 +128,13 @@ public class CommandProcessor {
             if (group.getGuide().getSurname().equalsIgnoreCase(parts[1]) &&
                     group.getGuide().getName().equalsIgnoreCase(parts[2]) &&
                     parts[8].equalsIgnoreCase("ghid")) {
-                return museumCode + " ## " + timetable + " ## guide found: surname=" + parts[1] + ", name=" + parts[2] + ", role=ghid, age=" + parts[4] + ", email=" + email+ ", school=" + parts[6] + ", experience=" + parts[7];
+                return museumCode + " ## " + timetable + " ## guide found: surname=" + parts[1] + ", name=" + parts[2] + ", role=ghid, age=" + parts[4] + ", email=" + parts[5] + ", school=" + parts[6] + ", experience=" + parts[7];
             }
         } else {
             System.out.println("DEBUG: No guide found in this group.");
         }
 
-        return museumCode + " ## " + timetable + " ## guide not exists: surname=" + parts[1] + ", name=" + parts[2] + ", role=" + parts[8] + ", age=" + parts[4] + ", email=" + email+ ", school=" + parts[6] + ", experience=" + parts[7];
+        return museumCode + " ## " + timetable + " ## guide not exists: surname=" + parts[1] + ", name=" + parts[2] + ", role=" + parts[8] + ", age=" + parts[4] + ", email=" + parts[5]+ ", school=" + parts[6] + ", experience=" + parts[7];
     }
 
 
@@ -156,9 +155,9 @@ public class CommandProcessor {
 
         System.out.println(group.findMember(parts[2]));
         if(group.findMember(parts[2]) && group.findMemberBySurname(parts[1])) {
-            return museumCode + " ## " + timetable + " ## member found: surname=" + parts[1] + ", name=" + parts[2] + ", role=" + parts[8] + ", age=" + parts[4] + ", email=" + email + ", school=" + parts[6] + ", experience=" + parts[7];
+            return museumCode + " ## " + timetable + " ## member found: surname=" + parts[1] + ", name=" + parts[2] + ", role=" + parts[8] + ", age=" + parts[4] + ", email=" + parts[5] + ", school=" + parts[6] + ", experience=" + parts[7];
         } else {
-            return museumCode + " ## " + timetable + " ## member not exists: surname=" + parts[1] + ", name=" + parts[2] + ", role=" + parts[8] + ", age=" + parts[4] + ", email=" + email + ", school=" + parts[6] + ", experience=" + parts[7];         }
+            return museumCode + " ## " + timetable + " ## member not exists: surname=" + parts[1] + ", name=" + parts[2] + ", role=" + parts[8] + ", age=" + parts[4] + ", email=" + parts[5]+ ", school=" + parts[6] + ", experience=" + parts[7];         }
         }
 
 }
