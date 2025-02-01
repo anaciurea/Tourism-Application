@@ -114,7 +114,7 @@ public class CommandProcessor {
 
         int museumCode = Integer.parseInt(parts[9].trim());
         String timetable = parts[10].trim();
-        String email = (parts[5] == null || parts[5].trim().isEmpty()) ? "null" : parts[5];
+        String email = parts[5];
 
         System.out.println("DEBUG: Searching for guide " + parts[1] + " " + parts[2] + " in museum " + museumCode + " at " + timetable);
 
@@ -147,7 +147,7 @@ public class CommandProcessor {
         int museumCode = Integer.parseInt(parts[9].trim());
         String timetable = parts[10].trim();
         String personDetails = parts[3].trim();
-        String email = (parts[5] == null || parts[5].trim().isEmpty()) ? "null" : parts[5];
+        String email = parts[5];
 
         Group group = findGroup(database, museumCode, timetable, parts);
         if (group == null) {

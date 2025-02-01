@@ -4,7 +4,6 @@ public class RemoveGuideCommand implements Command {
     public String execute(String[] parts, Database database) throws Exception {
         Integer museumCode;
         String timetable;
-        System.out.println("DEBUG: Processing command -> " + parts[0]);
 
         try {
             if (parts.length < 3) {
@@ -13,7 +12,6 @@ public class RemoveGuideCommand implements Command {
 
             museumCode = Integer.parseInt(parts[9].trim());
             timetable = parts[10].trim();
-            System.out.println(museumCode + "codul muzeului");
         } catch (NumberFormatException e) {
             return String.format("error: Invalid input format for museumCode: %s.", parts[9]);
         } catch (Exception e) {
